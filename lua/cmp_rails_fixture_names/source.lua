@@ -9,7 +9,7 @@ end
 source.is_available = function()
   local current_buffer_path = vim.fn.expand('%')
 
-  return vim.startswith(current_buffer_path, 'test/')
+  return vim.startswith(current_buffer_path, 'test/') or vim.startswith(current_buffer_path, 'spec/')
 end
 
 source.get_trigger_characters = function()

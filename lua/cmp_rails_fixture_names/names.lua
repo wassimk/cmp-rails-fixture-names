@@ -7,15 +7,21 @@ end
 local rails_fixture_names = {}
 
 local success, types = pcall(function()
-  local fixtures_dir = './test/fixtures'
+  local fixture_dirs = { './test/fixtures', './spec/fixtures' }
 
-  local files = scan.scan_dir(fixtures_dir, { search_pattern = '.yml', respect_gitignore = true,
+  local fixture_dirs = vim.tbl_filter(function(dir)
+    return vim.fn.isdirectory(dir) == 1
+  end, fixture_dirs)
+
+  local files = scan.scan_dir(fixture_dirs, { search_pattern = '.yml', respect_gitignore = true,
     silent = true })
 
   local types = {}
-  for _, file in ipairs(files) do
-    local type = file:match(fixtures_dir .. '/(.+)%.yml$')
-    types[type:gsub('/', '_')] = file
+  for _, file in pairs(files) do
+    for _, fixture_dir in pairs(fixture_dirs) do
+      local type = file:match(fixture_dir .. '/(.+)%.yml$')
+      types[type:gsub('/', '_')] = file
+    end
   end
 
   return types
@@ -64,7 +70,7 @@ function rails_fixture_names.documentation(type, name)
         documentation = name .. ':\n'
       end
     else
-      if (line == nil) or (line == '') then
+      if (line == nil) or (line == '') or (line == '--') or (not line:match('^  ')) then
         matched = false
       else
         documentation = documentation .. line .. '\n'
