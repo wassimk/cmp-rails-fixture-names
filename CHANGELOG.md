@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Update completion menu to include prefix to avoid LSP name collisions
 
 ## [0.2.0] - 2022-07-15
 ### Added

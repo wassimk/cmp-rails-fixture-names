@@ -26,8 +26,8 @@ source.complete = function(_, request, callback)
     local items = {}
     for _, name in ipairs(names.all(type)) do
       local cmp_item = {
-        filterText = name,
-        label = name,
+        filterText = ':' .. name,
+        label = ':' .. name,
         documentation = names.documentation(type, name),
         textEdit = {
           newText = ':' .. name,
@@ -46,12 +46,12 @@ source.complete = function(_, request, callback)
 
       table.insert(items, cmp_item)
     end
-    callback {
+    callback({
       items = items,
       isIncomplete = true,
-    }
+    })
   else
-    callback { isIncomplete = true }
+    callback({ isIncomplete = true })
   end
 end
 
