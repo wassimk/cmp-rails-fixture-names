@@ -12,8 +12,10 @@ function M.fixture_types(type)
 
     for _, fixture_dir in pairs(M.fixture_dirs()) do
       for _, file in pairs(M.fixture_files()) do
-        local formatted_type = file:match(fixture_dir .. '/(.+)%.yml$')
-        M.loaded_fixtures[formatted_type:gsub('/', '_')] = file
+        local fixture_type = file:match(fixture_dir .. '/(.+)%.yml$')
+        if fixture_type ~= nil then
+          M.loaded_fixtures[fixture_type:gsub('/', '_')] = file
+        end
       end
     end
   end
@@ -48,9 +50,9 @@ end
 
 function M.all(type)
   local filename = M.fixture_types(type)
-  local file = io.open(filename, 'r')
 
   local names = {}
+  local file = io.open(filename, 'r')
 
   for line in file:lines() do
     local name = line:match('^([a-z_]+):')

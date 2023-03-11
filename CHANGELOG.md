@@ -10,6 +10,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Cache fixture types to avoid constantly re-scanning the fixture dirs
 - Update completion menu to include prefix to avoid LSP name collisions
 
+### Fixed
+
+- Avoid crash if fixtures exist in only one of test/ or spec/
+
 ## [0.2.0] - 2022-07-15
 
 ### Added
