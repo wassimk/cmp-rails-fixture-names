@@ -1,5 +1,3 @@
-local names = require('cmp_rails_fixture_names.names')
-
 local M = {}
 
 M.new = function()
@@ -20,6 +18,7 @@ end
 M.complete = function(_, request, callback)
   local input = string.sub(request.context.cursor_before_line, request.offset - 1)
   local prefix = string.sub(request.context.cursor_before_line, 1, request.offset - 1)
+  local names = require('cmp_rails_fixture_names.names')
 
   local type = prefix:match('(%g+)%(%:$')
 
