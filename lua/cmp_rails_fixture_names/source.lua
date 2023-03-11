@@ -1,23 +1,23 @@
 local names = require('cmp_rails_fixture_names.names')
 
-local source = {}
+local M = {}
 
-source.new = function()
-  return setmetatable({}, { __index = source })
+M.new = function()
+  return setmetatable({}, { __index = M })
 end
 
-source.is_available = function()
+M.is_available = function()
   local current_buffer_path = vim.fn.expand('%')
 
   return vim.startswith(current_buffer_path, 'test/')
     or vim.startswith(current_buffer_path, 'spec/')
 end
 
-source.get_trigger_characters = function()
+M.get_trigger_characters = function()
   return { ':' }
 end
 
-source.complete = function(_, request, callback)
+M.complete = function(_, request, callback)
   local input = string.sub(request.context.cursor_before_line, request.offset - 1)
   local prefix = string.sub(request.context.cursor_before_line, 1, request.offset - 1)
 
@@ -56,4 +56,4 @@ source.complete = function(_, request, callback)
   end
 end
 
-return source
+return M

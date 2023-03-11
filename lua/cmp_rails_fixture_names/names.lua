@@ -4,44 +4,50 @@ if not has_scan then
   return
 end
 
-local rails_fixture_names = {}
+local M = {}
 
-local success, types = pcall(function()
-  local fixture_dirs = { './test/fixtures', './spec/fixtures' }
+function M.fixture_types(type)
+  if not M.loaded_fixtures then
+    M.loaded_fixtures = {}
 
-  local fixture_dirs = vim.tbl_filter(function(dir)
-    return vim.fn.isdirectory(dir) == 1
-  end, fixture_dirs)
-
-  local files = scan.scan_dir(
-    fixture_dirs,
-    { search_pattern = '.yml', respect_gitignore = true, silent = true }
-  )
-
-  local types = {}
-  for _, file in pairs(files) do
-    for _, fixture_dir in pairs(fixture_dirs) do
-      local type = file:match(fixture_dir .. '/(.+)%.yml$')
-      types[type:gsub('/', '_')] = file
+    for _, fixture_dir in pairs(M.fixture_dirs()) do
+      for _, file in pairs(M.fixture_files()) do
+        local formatted_type = file:match(fixture_dir .. '/(.+)%.yml$')
+        M.loaded_fixtures[formatted_type:gsub('/', '_')] = file
+      end
     end
   end
 
-  return types
-end)
-if not success then
-  return
+  return M.loaded_fixtures[type]
 end
 
-function rails_fixture_names.valid_type(type)
+function M.fixture_files()
+  return scan.scan_dir(
+    M.fixture_dirs(),
+    { search_pattern = '.yml', respect_gitignore = true, silent = true }
+  )
+end
+
+function M.fixture_dirs()
+  local fixture_dirs = { './test/fixtures', './spec/fixtures' }
+
+  fixture_dirs = vim.tbl_filter(function(dir)
+    return vim.fn.isdirectory(dir) == 1
+  end, fixture_dirs)
+
+  return fixture_dirs
+end
+
+function M.valid_type(type)
   if type == nil or type == '' then
     return false
   end
 
-  return types[type] ~= nil
+  return M.fixture_types(type) ~= nil
 end
 
-function rails_fixture_names.all(type)
-  local filename = types[type]
+function M.all(type)
+  local filename = M.fixture_types(type)
   local file = io.open(filename, 'r')
 
   local names = {}
@@ -58,8 +64,8 @@ function rails_fixture_names.all(type)
   return names
 end
 
-function rails_fixture_names.documentation(type, name)
-  local filename = types[type]
+function M.documentation(type, name)
+  local filename = M.fixture_types(type)
   local file = io.open(filename, 'r')
 
   local documentation = ''
@@ -85,4 +91,4 @@ function rails_fixture_names.documentation(type, name)
   return documentation
 end
 
-return rails_fixture_names
+return M
