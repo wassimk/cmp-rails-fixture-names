@@ -10,7 +10,7 @@ There is a companion plugin, called [cmp-rails-fixture-types](https://github.com
 
 ## Setup
 
-### Prerequisites:
+### Prerequisites
 
 Fixtures must exist in the default location of `test/fixtures` or `spec/fixtures` and be `.yml` files.
 
@@ -24,7 +24,7 @@ Install **cmp-rails-fixture-names** using your plugin manager of choice. For exa
 {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    { "wassimk/cmp-rails-fixture-names", version = "*" },
+    { "wassimk/cmp-rails-fixture-names", version = "*", ft = "ruby" },
   },
 }
 ```
