@@ -32,10 +32,10 @@ Install **cmp-rails-fixture-names** using your plugin manager of choice. For exa
 Then add `rails-fixture-names` source in your **nvim-cmp** configuration:
 
 ```lua
-require('cmp').setup {
+require("cmp").setup {
   -- ...
   sources = {
-    { name = 'rails-fixture-names' },
+    { name = "rails-fixture-names" },
     -- other sources ...
   },
   -- ...
