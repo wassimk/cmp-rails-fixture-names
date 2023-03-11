@@ -13,8 +13,10 @@ local success, types = pcall(function()
     return vim.fn.isdirectory(dir) == 1
   end, fixture_dirs)
 
-  local files = scan.scan_dir(fixture_dirs, { search_pattern = '.yml', respect_gitignore = true,
-    silent = true })
+  local files = scan.scan_dir(
+    fixture_dirs,
+    { search_pattern = '.yml', respect_gitignore = true, silent = true }
+  )
 
   local types = {}
   for _, file in pairs(files) do
