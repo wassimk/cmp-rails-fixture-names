@@ -7,8 +7,10 @@ end
 M.is_available = function()
   local current_buffer_path = vim.fn.expand('%')
 
-  return vim.startswith(current_buffer_path, 'test/')
-    or vim.startswith(current_buffer_path, 'spec/')
+  return vim.bo.filetype == 'ruby'
+    and (
+      vim.startswith(current_buffer_path, 'test/') or vim.startswith(current_buffer_path, 'spec/')
+    )
 end
 
 M.get_trigger_characters = function()
