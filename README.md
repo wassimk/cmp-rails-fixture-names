@@ -1,3 +1,5 @@
+> **Deprecated:** This plugin is no longer maintained. Use [rails-fixture-complete.nvim](https://github.com/wassimk/rails-fixture-complete.nvim) instead, which supports both blink.cmp and nvim-cmp natively.
+
 # cmp-rails-fixture-names
 
 This plugin is a source for [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) to complete Ruby on Rails fixture **names**. Names meaning the individual fixtures each fixture **type** represents.
