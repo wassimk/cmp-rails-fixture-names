@@ -1,4 +1,5 @@
-> **Deprecated:** This plugin is no longer maintained. Use [rails-fixture-complete.nvim](https://github.com/wassimk/rails-fixture-complete.nvim) instead, which supports both blink.cmp and nvim-cmp natively.
+> [!CAUTION]
+> This plugin is no longer maintained. Use [rails-fixture-complete.nvim](https://github.com/wassimk/rails-fixture-complete.nvim) instead, which supports both blink.cmp and nvim-cmp natively.
 
 # cmp-rails-fixture-names
 
